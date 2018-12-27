@@ -1,4 +1,4 @@
-from alpine:3.8
+FROM alpine:3.8
 
 LABEL org.label-schema.schema-version="1.0" \
     org.label-schema.name="PHP on alpine" \
