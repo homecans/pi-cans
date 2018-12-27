@@ -1,0 +1,34 @@
+version: '2.0'
+services:
+    cli:
+        image: armphp
+        container_name: php-cli
+        entrypoint:
+            - php
+        command: "-v"
+        working_dir: "/var/www"
+        volumes:
+            - .:/var/www
+        
+
+    composer:
+        image: armphp
+        container_name: composer
+        entrypoint:
+            - composer
+        command: "-v"
+        working_dir: "/var/www"
+        volumes:
+            - .:/var/www
+
+    php-server:
+        image: armphp
+        container_name: php-server
+        entrypoint:
+            - php
+        command: "-S 0.0.0.0:8000 -t /var/www"
+        working_dir: "/var/www"
+        volumes:
+            - .:/var/www
+        ports:
+            - 8000:8000
