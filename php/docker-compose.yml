@@ -21,9 +21,9 @@ services:
         volumes:
             - .:/var/www
 
-    php-server:
+    server:
         image: coincan/php:7.2
-        container_name: php-server
+        container_name: server
         entrypoint:
             - php
         command: "-S 0.0.0.0:8000 -t /var/www"
