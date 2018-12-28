@@ -1,7 +1,7 @@
 version: '2.0'
 services:
     cli:
-        image: armphp
+        image: coincan/php:7.2
         container_name: php-cli
         entrypoint:
             - php
@@ -12,7 +12,7 @@ services:
         
 
     composer:
-        image: armphp
+        image: coincan/php:7.2
         container_name: composer
         entrypoint:
             - composer
@@ -22,7 +22,7 @@ services:
             - .:/var/www
 
     php-server:
-        image: armphp
+        image: coincan/php:7.2
         container_name: php-server
         entrypoint:
             - php
