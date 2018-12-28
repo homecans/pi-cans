@@ -1,34 +1,22 @@
 version: '2.0'
 services:
-    cli:
-        image: coincan/php:7.2
-        container_name: php-cli
-        entrypoint:
-            - php
-        command: "-v"
-        working_dir: "/var/www"
-        volumes:
-            - .:/var/www
-        
-
-    composer:
-        image: coincan/php:7.2
-        container_name: composer
-        entrypoint:
-            - composer
-        command: "-v"
-        working_dir: "/var/www"
-        volumes:
-            - .:/var/www
-
     server:
         image: coincan/php:7.2
         container_name: server
         entrypoint:
             - php
         command: "-S 0.0.0.0:8000 -t /var/www"
+        network_mode: "host"
         working_dir: "/var/www"
         volumes:
             - ./public:/var/www
         ports:
             - 8000:8000
+
+    database:
+        image: coincan/mariadb
+        container_name: database
+        volumes:
+            - ./database:/var/lib/mysql
+        ports:
+            - 3306:3306
