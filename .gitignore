@@ -1,1 +1,3 @@
 php/database
+wp-hosting/database
+wp-hosting/nginx.pid

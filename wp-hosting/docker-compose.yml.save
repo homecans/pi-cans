@@ -1,0 +1,37 @@
+version: '2.0'
+services:
+    mariadb:
+        image: coincan/mariadb
+        container_name: pi-cans-mariadb
+        volumes:
+            - ./database:/var/lib/mysql
+        ports:
+            - 13306:3306
+
+    php-fpm:
+        image: coincan/php:7.2
+        container_name: pi-cans-phpfpm
+        restart: on-failure
+	depends_on:
+          - mariadb
+        volumes:
+          - ./html:/var/www/html:rw
+          - ./provision/php-fpm/site.php-fpm.conf:/etc/php7/php-fpm.d/www.conf:ro
+        environment:
+          - PUID="1000"
+          - PGID="1000"
+          - TZ="Australia/Melbourne"
+
+    nginx:
+        image: coincan/nginx:1.14
+        depends_on:
+          - php-fpm
+          - mariadb
+        container_name: pi-cans-nginx
+        volumes:
+          - ./html:/var/www/html:rw
+          - ./provision/nginx/site.nginx.conf:/etc/nginx/conf.d/mysite.conf:ro
+        restart: on-failure
+        ports:
+          - "80:80"
+          - "443:443"
